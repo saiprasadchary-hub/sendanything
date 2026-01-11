@@ -1,0 +1,8 @@
+{
+  "name": "Send Anything!",
+  "description": "A secure, peer-to-peer file sharing application with end-to-end encryption and simple 6-digit code pairing.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

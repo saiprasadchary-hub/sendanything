@@ -1,0 +1,50 @@
+{
+    "short_name": "SendAnything",
+    "name": "Send Anything! P2P",
+    "icons": [
+        {
+            "src": "favicon.png",
+            "sizes": "64x64 32x32 24x24 16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "icon-192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "icon-512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": ".",
+    "id": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "portrait",
+    "theme_color": "#0f172a",
+    "background_color": "#0f172a",
+    "description": "Send files privately and securely with Send Anything! Direct P2P transfer, 100% privacy, no file size limits, and no cloud storage.",
+    "lang": "en",
+    "dir": "ltr",
+    "categories": [
+        "utilities",
+        "productivity",
+        "social"
+    ],
+    "screenshots": [
+        {
+            "src": "logo.png",
+            "sizes": "1000x1000",
+            "type": "image/png",
+            "form_factor": "wide"
+        },
+        {
+            "src": "logo.png",
+            "sizes": "1000x1000",
+            "type": "image/png",
+            "form_factor": "narrow"
+        }
+    ]
+}

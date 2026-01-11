@@ -1,0 +1,14 @@
+[
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "app.web.send_anything.twa",
+            "sha256_cert_fingerprints": [
+                "66:66:3B:69:A6:5A:D9:5B:38:DB:EF:0F:B3:5E:C6:2A:23:CE:A6:E0:42:1F:24:C4:B2:71:07:91:99:E5:5C:68"
+            ]
+        }
+    }
+]

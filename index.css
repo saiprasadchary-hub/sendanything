@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+    font-family: 'Inter', sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Light Theme (Clean Slate) */
+body.light {
+    @apply bg-white text-slate-900;
+}
+
+/* Dark Theme (Matte) */
+body.dark {
+    @apply bg-[#09090b] text-[#fafafa];
+}
+
+/* Utility for card surfaces */
+.surface-light {
+    @apply bg-slate-50 border border-slate-200;
+}
+
+.surface-dark {
+    @apply bg-[#18181b] border border-[#27272a];
+}
+
+/* Custom Scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Simple Enter Animation */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-entry {
+    animation: fade-in 0.4s ease-out forwards;
+}
+
+/* Gentle Float Animation */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Theme Toggle Icon Animation */
+.theme-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-icon::before,
+.theme-icon::after {
+    content: '';
+    position: absolute;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light mode - Sun */
+.theme-icon-light {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    box-shadow: 0 0 15px rgba(251, 191, 36, 0.5);
+}
+
+.theme-icon-light::before {
+    inset: -6px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent 0deg 45deg, #fbbf24 45deg 90deg, transparent 90deg 135deg, #fbbf24 135deg 180deg, transparent 180deg 225deg, #fbbf24 225deg 270deg, transparent 270deg 315deg, #fbbf24 315deg 360deg);
+    animation: rotate 4s linear infinite;
+}
+
+/* Dark mode - Moon */
+.theme-icon-dark {
+    background: linear-gradient(135deg, #64748b, #475569);
+    box-shadow: 0 0 15px rgba(100, 116, 139, 0.5);
+}
+
+.theme-icon-dark::before {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #0f172a;
+    top: -2px;
+    left: 6px;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Remove bounce on drag for cleaner feel */
+.drag-overlay {
+    @apply fixed inset-0 z-50 bg-blue-500/10 backdrop-blur-sm border-4 border-blue-500 rounded-xl m-4 flex items-center justify-center;
+}
