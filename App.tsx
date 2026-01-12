@@ -915,7 +915,7 @@ const App: React.FC = () => {
 
   return (
     <div
-      className={`min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 transition-colors duration-500 overflow-x-hidden ${isDragging ? 'opacity-90 scale-[0.99]' : ''}`}
+      className={`min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 transition-colors duration-[1500ms] ease-in-out overflow-x-hidden ${isDragging ? 'opacity-90 scale-[0.99]' : ''}`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
