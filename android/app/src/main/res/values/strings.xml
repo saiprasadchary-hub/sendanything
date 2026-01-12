@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Send Anything</string>
+    <string name="title_activity_main">Send Anything</string>
+    <string name="package_name">com.sendanything.app</string>
+    <string name="custom_url_scheme">com.sendanything.app</string>
+</resources>

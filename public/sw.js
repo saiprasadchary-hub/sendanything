@@ -22,10 +22,10 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('fetch', event => {
-    // Network-First strategy for HTML navigation requests (ensures fresh index.html)
+    // Network-First strategy for HTML navigation requests (ensures fresh index.html when online)
     if (event.request.mode === 'navigate' || event.request.destination === 'document') {
         event.respondWith(
-            fetch(event.request)
+            fetch(event.request, { cache: 'no-cache' })
                 .then(response => {
                     // Update cache with new version
                     const responseClone = response.clone();
@@ -35,14 +35,21 @@ self.addEventListener('fetch', event => {
                     return response;
                 })
                 .catch(() => {
-                    // Fallback to cache if offline
-                    return caches.match(event.request);
+                    // Fallback to cache if offline - CRITICAL for offline mode
+                    return caches.match(event.request)
+                        .then(cachedResponse => {
+                            if (cachedResponse) {
+                                return cachedResponse;
+                            }
+                            // Return a basic offline page if nothing in cache
+                            return caches.match('/index.html');
+                        });
                 })
         );
         return;
     }
 
-    // Stale-While-Revalidate for other assets
+    // Cache-First for all other assets (JS, CSS, images) - WORKS OFFLINE
     event.respondWith(
         caches.match(event.request)
             .then(response => {
@@ -50,7 +57,22 @@ self.addEventListener('fetch', event => {
                     // Return cached response immediately
                     return response;
                 }
-                return fetch(event.request);
+                // If not in cache, fetch from network and cache it
+                return fetch(event.request)
+                    .then(fetchResponse => {
+                        // Cache the new resource
+                        if (fetchResponse && fetchResponse.status === 200) {
+                            const responseClone = fetchResponse.clone();
+                            caches.open(CACHE_NAME).then(cache => {
+                                cache.put(event.request, responseClone);
+                            });
+                        }
+                        return fetchResponse;
+                    })
+                    .catch(() => {
+                        // If offline and not in cache, return null
+                        return null;
+                    });
             })
     );
 });
