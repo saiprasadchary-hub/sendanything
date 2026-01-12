@@ -982,7 +982,7 @@ const App: React.FC = () => {
           className={`p-4 rounded-full transition-all duration-300 active:scale-95 ${theme === 'dark' ? 'bg-[#27272a] hover:bg-[#3f3f46]' : 'bg-slate-100 hover:bg-slate-200'}`}
         >
           {theme === 'dark' ? (
-            <MoonIcon className="w-8 h-8 animate-entry" />
+            <MoonIcon className="w-6 h-6 animate-entry" />
           ) : (
             <SunIcon className="w-6 h-6 text-amber-500 animate-entry animate-spin-slow" />
           )}
