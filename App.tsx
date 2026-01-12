@@ -851,6 +851,17 @@ const App: React.FC = () => {
     setMessageInput('');
   };
 
+  const downloadSingle = (file: { blob: Blob; path: string; name?: string; size?: number }) => {
+    const url = URL.createObjectURL(file.blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = file.path || file.name || 'downloaded-file';
+    document.body.appendChild(a); // Append to body to ensure it works in all contexts
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   const downloadFilesAsZip = async (files: { blob: Blob; path: string }[]) => {
     if (files.length === 0) return;
     setIsZipping(true);
