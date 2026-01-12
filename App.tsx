@@ -7,6 +7,7 @@ import { TransferHistory } from './components/TransferHistory';
 import { QRCodeDisplay } from './components/QRCodeDisplay';
 import { SpeedGraph } from './components/SpeedGraph';
 import { TelemetryPanel } from './components/TelemetryPanel';
+import { TypingText } from './components/TypingText';
 
 // import { playSound } from './utils/audio'; // Sounds disabled per user request
 import { scanFiles } from './utils/fileScanning';
@@ -981,7 +982,7 @@ const App: React.FC = () => {
       <header className="mb-12 text-center relative z-10 animate-entry px-4 flex flex-col items-center">
         <h1 className={`text-5xl sm:text-6xl font-bold tracking-tight mb-2 animate-float ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>Send Anything</h1>
         <p className={`text-base font-medium ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
-          Simple, secure, direct.
+          <TypingText text="Simple, secure, direct." speed={80} />
         </p>
       </header>
 
