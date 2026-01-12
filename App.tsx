@@ -983,11 +983,12 @@ const App: React.FC = () => {
 
 
 
-      <header className="mb-12 text-center relative z-10 animate-entry px-4 flex flex-col items-center">
-        <h1 className={`text-5xl sm:text-6xl font-bold tracking-tight mb-2 animate-float ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>Send Anything</h1>
-        <p className={`text-base font-medium ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
+      <header className="mb-8 text-center relative z-10 animate-entry px-4 flex flex-col items-center">
+        <img src="/logo.png" alt="Send Anything" className="w-24 h-24 sm:w-32 sm:h-32 mb-4 rounded-xl shadow-lg" />
+        <h1 className={`text-4xl sm:text-5xl font-bold tracking-tight mb-2 animate-float ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>Send Anything</h1>
+        <div className={`text-base font-medium ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
           <TypingText text="Simple, secure, direct." speed={80} />
-        </p>
+        </div>
       </header>
 
       <main className="w-full max-w-lg relative z-10 animate-entry px-4">
