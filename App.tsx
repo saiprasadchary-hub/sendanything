@@ -8,7 +8,7 @@ import { QRCodeDisplay } from './components/QRCodeDisplay';
 import { SpeedGraph } from './components/SpeedGraph';
 import { TelemetryPanel } from './components/TelemetryPanel';
 
-import { playSound } from './utils/audio';
+// import { playSound } from './utils/audio'; // Sounds disabled per user request
 import { scanFiles } from './utils/fileScanning';
 import { isMobile, requestWakeLock, releaseWakeLock } from './utils/device';
 import JSZip from 'jszip';
@@ -133,7 +133,7 @@ const App: React.FC = () => {
   }, []);
 
   const toggleTheme = () => {
-    playSound.click();
+
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
@@ -182,12 +182,11 @@ const App: React.FC = () => {
         if (appStateRef.current === AppState.TRANSFERRING) {
           setAppState(AppState.INTERRUPTED);
           setConnStatus('reconnecting');
-          playSound.error();
+
           return;
         }
 
         setConnStatus('error');
-        playSound.error();
         if (err.type === 'unavailable-id') {
           newPeer.destroy();
           initPeer();
@@ -278,7 +277,6 @@ const App: React.FC = () => {
         }
       } else if (data.type === 'TEXT') {
         setChatMessages(prev => [...prev, { id: Date.now().toString(), sender: 'peer', text: data.payload, timestamp: Date.now() }]);
-        playSound.click();
         if (!showChat) setShowChat(true);
       } else if (data.type === 'PING') {
         conn.send({ type: 'PONG', payload: data.payload });
@@ -295,7 +293,6 @@ const App: React.FC = () => {
         setConnStatus('disconnected');
         if (appStateRef.current === AppState.TRANSFERRING) {
           setAppState(AppState.INTERRUPTED);
-          playSound.error();
           releaseWakeLock();
         }
       }
@@ -312,7 +309,6 @@ const App: React.FC = () => {
   const copyCodeToClipboard = () => {
     navigator.clipboard.writeText(fourDigitCode);
     setIsCopied(true);
-    playSound.click();
     setTimeout(() => setIsCopied(false), 2000);
   };
 
@@ -369,7 +365,6 @@ const App: React.FC = () => {
     const totalSize = itemsToSend.reduce((acc, f) => acc + f.file.size, 0);
     // Limit check removed for Ultimate Version
 
-    playSound.click();
     setSelectedFiles(itemsToSend);
     setAppState(AppState.SENDING_WAITING);
     setConnStatus('waiting');
@@ -380,7 +375,6 @@ const App: React.FC = () => {
   };
 
   const startReceiving = () => {
-    playSound.click();
     setReceivedFiles([]); // Clear previous session files
     setAppState(AppState.RECEIVING_INPUT);
     if (peerRef.current?.open) setConnStatus('sender-connected');
@@ -540,13 +534,11 @@ const App: React.FC = () => {
       pool[0].send({ type: 'ALL_DONE' });
       addToHistory('sent', files.map(f => ({ name: f.path, size: f.file.size })));
       setAppState(AppState.COMPLETED);
-      playSound.success();
       releaseWakeLock();
     }
   };
 
   const connectToSender = (isResume: boolean = false) => {
-    playSound.click();
     setError(null);
     setConnStatus('connecting');
     transferAbortedRef.current = false;
@@ -637,7 +629,6 @@ const App: React.FC = () => {
         clearInterval(retry);
         setAppState(AppState.INTERRUPTED);
         setError("Connection lost indefinitely.");
-        playSound.error();
         return;
       }
 
@@ -774,12 +765,10 @@ const App: React.FC = () => {
       // Small delay to ensure state updates propagate before verify
       setTimeout(() => {
         setAppState(AppState.COMPLETED);
-        playSound.success();
         releaseWakeLock();
       }, 100);
     } else if (data.type === 'TEXT') {
       setChatMessages(prev => [...prev, { id: Date.now().toString(), sender: 'peer', text: data.payload, timestamp: Date.now() }]);
-      playSound.click();
       if (!showChat) setShowChat(true);
     }
   };
@@ -819,7 +808,6 @@ const App: React.FC = () => {
   };
 
   const handleRetry = () => {
-    playSound.click();
     setError(null);
     if (appState === AppState.RECEIVING_INPUT) {
       connectToSender(false);
@@ -835,14 +823,12 @@ const App: React.FC = () => {
   };
 
   const abortTransfer = () => {
-    playSound.error();
     transferAbortedRef.current = true;
     if (connRef.current) connRef.current.close();
     reset();
   };
 
   const reset = () => {
-    playSound.click();
     setAppState(AppState.IDLE);
     setSelectedFiles([]);
     // Do not clear receivedFiles to allow download from history
@@ -862,7 +848,6 @@ const App: React.FC = () => {
     connRef.current.send({ type: 'TEXT', payload: messageInput });
     setChatMessages(prev => [...prev, { id: Date.now().toString(), sender: 'me', text: messageInput, timestamp: Date.now() }]);
     setMessageInput('');
-    playSound.click();
   };
 
   const downloadFilesAsZip = async (files: { blob: Blob; path: string }[]) => {
@@ -907,7 +892,6 @@ const App: React.FC = () => {
   };
 
   const clearHistory = () => {
-    playSound.click();
     setHistory([]);
   };
 
