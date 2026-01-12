@@ -227,7 +227,7 @@ const App: React.FC = () => {
   };
 
   const handleIncomingConnection = (conn: any) => {
-    playSound.connect();
+
 
     // Add to pool
     if (!connPoolRef.current.find((c: any) => c.peer === conn.peer && c.label === conn.label)) {
@@ -331,13 +331,13 @@ const App: React.FC = () => {
     // Pro Feature: Scan folders
     const items = e.dataTransfer.items;
     if (items && items.length > 0) {
-      playSound.hover();
+
       const files = await scanFiles(items);
       if (files.length > 0) {
         startSending(files);
       }
     } else if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      playSound.hover();
+
       startSending(Array.from(e.dataTransfer.files));
     }
   };
@@ -397,7 +397,7 @@ const App: React.FC = () => {
 
   const handleOutgoingConnection = async (conn: any, files: FileItem[], startIdx: number = 0, startOffset: number = 0) => {
     setConnStatus('established');
-    playSound.swoosh();
+
     requestWakeLock();
     let acksReceived = startIdx;
     const filesToSend = files.slice(startIdx);

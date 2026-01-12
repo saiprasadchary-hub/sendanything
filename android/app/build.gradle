@@ -22,6 +22,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    
+    packagingOptions {
+        pickFirst 'META-INF/kotlin-stdlib.kotlin_module'
+        pickFirst 'META-INF/kotlin-stdlib-common.kotlin_module'
+        pickFirst 'META-INF/kotlin-stdlib-jdk7.kotlin_module'
+        pickFirst 'META-INF/kotlin-stdlib-jdk8.kotlin_module'
+    }
 }
 
 repositories {
@@ -40,6 +47,24 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation project(':capacitor-cordova-android-plugins')
+    
+    // Explicitly exclude old Kotlin stdlib variants
+    configurations.all {
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
+    }
+    
+    // Force latest Kotlin stdlib
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.9.0'
+    
+    constraints {
+        implementation('org.jetbrains.kotlin:kotlin-stdlib-jdk7') {
+            because 'Merged into kotlin-stdlib since 1.8'
+        }
+        implementation('org.jetbrains.kotlin:kotlin-stdlib-jdk8') {
+            because 'Merged into kotlin-stdlib since 1.8'
+        }
+    }
 }
 
 apply from: 'capacitor.build.gradle'
