@@ -1,4 +1,4 @@
-const CACHE_NAME = 'send-anything-v1';
+const CACHE_NAME = 'send-anything-v2';
 const urlsToCache = [
     '/',
     '/index.html',
@@ -22,10 +22,32 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('fetch', event => {
+    // Network-First strategy for HTML navigation requests (ensures fresh index.html)
+    if (event.request.mode === 'navigate' || event.request.destination === 'document') {
+        event.respondWith(
+            fetch(event.request)
+                .then(response => {
+                    // Update cache with new version
+                    const responseClone = response.clone();
+                    caches.open(CACHE_NAME).then(cache => {
+                        cache.put(event.request, responseClone);
+                    });
+                    return response;
+                })
+                .catch(() => {
+                    // Fallback to cache if offline
+                    return caches.match(event.request);
+                })
+        );
+        return;
+    }
+
+    // Stale-While-Revalidate for other assets
     event.respondWith(
         caches.match(event.request)
             .then(response => {
                 if (response) {
+                    // Return cached response immediately
                     return response;
                 }
                 return fetch(event.request);

@@ -74,51 +74,19 @@ body.dark {
     animation: float 3s ease-in-out infinite;
 }
 
-/* Theme Toggle Icon Animation */
-.theme-icon {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    position: relative;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+
+/* Remove bounce on drag for cleaner feel */
+.drag-overlay {
+    @apply fixed inset-0 z-50 bg-blue-500/10 backdrop-blur-sm border-4 border-blue-500 rounded-xl m-4 flex items-center justify-center;
 }
 
-.theme-icon::before,
-.theme-icon::after {
-    content: '';
-    position: absolute;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+/* Slow Spin Animation */
+.animate-spin-slow {
+    animation: spin 10s linear infinite;
 }
 
-/* Light mode - Sun */
-.theme-icon-light {
-    background: linear-gradient(135deg, #fbbf24, #f59e0b);
-    box-shadow: 0 0 15px rgba(251, 191, 36, 0.5);
-}
-
-.theme-icon-light::before {
-    inset: -6px;
-    border-radius: 50%;
-    background: conic-gradient(from 0deg, transparent 0deg 45deg, #fbbf24 45deg 90deg, transparent 90deg 135deg, #fbbf24 135deg 180deg, transparent 180deg 225deg, #fbbf24 225deg 270deg, transparent 270deg 315deg, #fbbf24 315deg 360deg);
-    animation: rotate 4s linear infinite;
-}
-
-/* Dark mode - Moon */
-.theme-icon-dark {
-    background: linear-gradient(135deg, #64748b, #475569);
-    box-shadow: 0 0 15px rgba(100, 116, 139, 0.5);
-}
-
-.theme-icon-dark::before {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #0f172a;
-    top: -2px;
-    left: 6px;
-}
-
-@keyframes rotate {
+@keyframes spin {
     from {
         transform: rotate(0deg);
     }
@@ -128,7 +96,29 @@ body.dark {
     }
 }
 
-/* Remove bounce on drag for cleaner feel */
-.drag-overlay {
-    @apply fixed inset-0 z-50 bg-blue-500/10 backdrop-blur-sm border-4 border-blue-500 rounded-xl m-4 flex items-center justify-center;
+/* Twinkle Animation */
+.animate-twinkle {
+    animation: twinkle 2s ease-in-out infinite;
+}
+
+.animate-twinkle-delay-1 {
+    animation: twinkle 3s ease-in-out infinite 0.5s;
+}
+
+.animate-twinkle-delay-2 {
+    animation: twinkle 2.5s ease-in-out infinite 1s;
+}
+
+@keyframes twinkle {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
 }

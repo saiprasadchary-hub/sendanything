@@ -1,6 +1,6 @@
 ﻿import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { AppState, FileMetadata, TransferProgress, HistoryItem, ConnectionStatus, ChatMessage, FileItem } from './types';
-import { SendIcon, ReceiveIcon, CheckIcon, XIcon, LoadingIcon } from './components/Icons';
+import { SendIcon, ReceiveIcon, CheckIcon, XIcon, LoadingIcon, SunIcon, MoonIcon } from './components/Icons';
 import { FilePreview } from './components/FilePreview';
 import { StatusBadge } from './components/StatusBadge';
 import { TransferHistory } from './components/TransferHistory';
@@ -72,6 +72,7 @@ const App: React.FC = () => {
   const [isZipping, setIsZipping] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [history, setHistory] = useState<HistoryItem[]>([]);
+  const [showHistory, setShowHistory] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [messageInput, setMessageInput] = useState('');
@@ -980,7 +981,11 @@ const App: React.FC = () => {
           onClick={toggleTheme}
           className={`p-4 rounded-full transition-all duration-300 active:scale-95 ${theme === 'dark' ? 'bg-[#27272a] hover:bg-[#3f3f46]' : 'bg-slate-100 hover:bg-slate-200'}`}
         >
-          <div className={`theme-icon ${theme === 'dark' ? 'theme-icon-dark' : 'theme-icon-light'}`}></div>
+          {theme === 'dark' ? (
+            <MoonIcon className="w-8 h-8 animate-entry" />
+          ) : (
+            <SunIcon className="w-6 h-6 text-amber-500 animate-entry animate-spin-slow" />
+          )}
         </button>
         <span className={`text-xs font-bold uppercase tracking-wider transition-colors ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
           {theme}
@@ -1038,14 +1043,25 @@ const App: React.FC = () => {
               </div>
 
               {history.length > 0 && (
-                <TransferHistory
-                  history={history}
-                  theme={theme}
-                  onClear={clearHistory}
-                  formatSize={formatSize}
-                  onDownload={handleHistoryDownload}
-                  canDownload={canDownloadHistoryItem}
-                />
+                <div className="flex flex-col gap-4">
+                  <button
+                    onClick={() => setShowHistory(!showHistory)}
+                    className={`w-full py-3 rounded-xl text-sm font-semibold transition-all duration-200 border ${theme === 'dark' ? 'bg-[#27272a] border-[#3f3f46] text-slate-300 hover:bg-[#3f3f46]' : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'}`}
+                  >
+                    {showHistory ? 'Hide Transfer History' : 'Show Transfer History'}
+                  </button>
+
+                  {showHistory && (
+                    <TransferHistory
+                      history={history}
+                      theme={theme}
+                      onClear={clearHistory}
+                      formatSize={formatSize}
+                      onDownload={handleHistoryDownload}
+                      canDownload={canDownloadHistoryItem}
+                    />
+                  )}
+                </div>
               )}
             </div>
           )}
