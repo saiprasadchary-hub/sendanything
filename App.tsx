@@ -915,7 +915,7 @@ const App: React.FC = () => {
 
   return (
     <div
-      className={`min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 transition-colors duration-[1500ms] ease-in-out overflow-x-hidden ${isDragging ? 'opacity-90 scale-[0.99]' : ''}`}
+      className={`min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 transition-colors duration-[3000ms] ease-in-out overflow-x-hidden ${isDragging ? 'opacity-90 scale-[0.99]' : ''}`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
@@ -1002,7 +1002,7 @@ const App: React.FC = () => {
       </header>
 
       <main className="w-full max-w-lg relative z-10 animate-entry px-4">
-        <div className={`rounded-3xl p-8 transition-all duration-300 shadow-xl ${theme === 'dark' ? 'surface-dark' : 'surface-light'}`}>
+        <div className={`rounded-3xl p-8 transition-all duration-[3000ms] shadow-xl ${theme === 'dark' ? 'surface-dark' : 'surface-light'}`}>
 
           {(appState !== AppState.IDLE && appState !== AppState.COMPLETED) && (
             <div className="flex justify-center mb-6 sm:mb-8">
@@ -1016,7 +1016,7 @@ const App: React.FC = () => {
               <div className="flex flex-col gap-4 my-auto w-full">
                 <button
                   onClick={() => document.getElementById('fileInput')?.click()}
-                  className={`w-full group flex items-center p-6 rounded-2xl border transition-all duration-200 active:scale-[0.98] ${theme === 'dark' ? 'bg-[#27272a] border-[#3f3f46] hover:bg-[#3f3f46] text-white' : 'bg-white border-slate-200 hover:border-blue-400 hover:shadow-md text-slate-800'}`}
+                  className={`w-full group flex items-center p-6 rounded-2xl border transition-all duration-[3000ms] hover:duration-200 active:scale-[0.98] ${theme === 'dark' ? 'bg-[#27272a] border-[#3f3f46] hover:bg-[#3f3f46] text-white' : 'bg-white border-slate-200 hover:border-blue-400 hover:shadow-md text-slate-800'}`}
                 >
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center mr-6 transition-colors ${theme === 'dark' ? 'bg-blue-500/10 text-blue-400' : 'bg-blue-50 text-blue-600'}`}>
                     <SendIcon className="w-6 h-6" />
@@ -1030,7 +1030,7 @@ const App: React.FC = () => {
 
                 <button
                   onClick={startReceiving}
-                  className={`w-full group flex items-center p-6 rounded-2xl border transition-all duration-200 active:scale-[0.98] ${theme === 'dark' ? 'bg-[#27272a] border-[#3f3f46] hover:bg-[#3f3f46] text-white' : 'bg-white border-slate-200 hover:border-purple-400 hover:shadow-md text-slate-800'}`}
+                  className={`w-full group flex items-center p-6 rounded-2xl border transition-all duration-[3000ms] hover:duration-200 active:scale-[0.98] ${theme === 'dark' ? 'bg-[#27272a] border-[#3f3f46] hover:bg-[#3f3f46] text-white' : 'bg-white border-slate-200 hover:border-purple-400 hover:shadow-md text-slate-800'}`}
                 >
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center mr-6 transition-colors ${theme === 'dark' ? 'bg-purple-500/10 text-purple-400' : 'bg-purple-50 text-purple-600'}`}>
                     <ReceiveIcon className="w-6 h-6" />
