@@ -1046,7 +1046,7 @@ const App: React.FC = () => {
                 <div className="flex flex-col gap-4">
                   <button
                     onClick={() => setShowHistory(!showHistory)}
-                    className={`w-full py-3 rounded-xl text-sm font-semibold transition-all duration-200 border ${theme === 'dark' ? 'bg-[#27272a] border-[#3f3f46] text-slate-300 hover:bg-[#3f3f46]' : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'}`}
+                    className={`w-full py-3 rounded-xl text-sm font-semibold transition-all duration-[3000ms] hover:duration-200 border ${theme === 'dark' ? 'bg-[#27272a] border-[#3f3f46] text-slate-300 hover:bg-[#3f3f46]' : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'}`}
                   >
                     {showHistory ? 'Hide Transfer History' : 'Show Transfer History'}
                   </button>
