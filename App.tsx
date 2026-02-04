@@ -13,6 +13,7 @@ import { TypingText } from './components/TypingText';
 import { scanFiles } from './utils/fileScanning';
 import { isMobile, requestWakeLock, releaseWakeLock } from './utils/device';
 import JSZip from 'jszip';
+import Peer from 'peerjs';
 import './services/firebase';
 
 
@@ -21,7 +22,7 @@ const MIN_CHUNK_SIZE = 65536; // 64KB
 const MAX_CHUNK_SIZE = 134217728; // 128MB (Ludicrous Speed)
 const INITIAL_CHUNK_SIZE = 1048576; // 1MB
 
-declare var Peer: any;
+
 
 // Helpers
 const formatSize = (bytes: number) => {
@@ -161,10 +162,8 @@ const App: React.FC = () => {
     }
 
     const id = customId || generate4DigitId();
-    const script = document.createElement('script');
-    script.src = '/peerjs.min.js';
-    script.async = true;
-    script.onload = () => {
+
+    try {
       const newPeer = new Peer(id, {
         config: {
           iceServers: [
@@ -192,10 +191,10 @@ const App: React.FC = () => {
       });
 
       newPeer.on('error', (err: any) => {
+        console.error("PeerJS Error:", err);
         if (appStateRef.current === AppState.TRANSFERRING) {
           setAppState(AppState.INTERRUPTED);
           setConnStatus('reconnecting');
-
           return;
         }
 
@@ -212,6 +211,7 @@ const App: React.FC = () => {
           case 'invalid-id': userMessage = "Invalid code."; break;
           case 'browser-incompatible': userMessage = "Browser incompatible."; break;
           case 'socket-error': userMessage = "Server connection lost."; break;
+          case 'server-error': userMessage = "PeerJS signaling server error."; break;
         }
         setError(userMessage);
       });
@@ -221,11 +221,13 @@ const App: React.FC = () => {
         handleIncomingConnection(conn);
       });
 
-
-
       peerRef.current = newPeer;
-    };
-    document.body.appendChild(script);
+
+    } catch (e) {
+      console.error("Failed to initialize PeerJS:", e);
+      setConnStatus('error');
+      setError("Failed to initialize connection engine.");
+    }
 
     // Ping Loop
     const pingInterval = setInterval(() => {
