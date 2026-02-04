@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@capacitor/android": "^8.0.0",
+    "@capacitor/assets": "^3.0.5",
     "@types/jszip": "^3.4.0",
     "firebase": "^12.7.0",
     "jszip": "^3.10.1",
